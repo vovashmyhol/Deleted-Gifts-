@@ -469,24 +469,31 @@ body {
 
 .clear-input-btn {
   position: absolute;
-  right: 10px;
-  width: 22px;
-  height: 22px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.14);
   border: none;
   color: rgba(255, 255, 255, 0.6);
-  font-size: 11px;
-  font-weight: bold;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
+  margin: 0;
   transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
 }
 
+.clear-input-btn svg {
+  display: block;
+  pointer-events: none;
+  width: 10px;
+  height: 10px;
+}
+
 .clear-input-btn:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.28);
   color: #ffffff;
 }
 
