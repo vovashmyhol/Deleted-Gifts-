@@ -41,6 +41,7 @@ const senderAvatar = document.getElementById('sender-avatar');
 const senderName = document.getElementById('sender-name');
 const giftCommentInput = document.getElementById('gift-comment');
 const recipientHandleInput = document.getElementById('recipient-handle');
+const clearRecipientBtn = document.getElementById('clear-recipient-btn');
 const qtyMinusBtn = document.getElementById('qty-minus');
 const qtyPlusBtn = document.getElementById('qty-plus');
 const qtyCountSpan = document.getElementById('qty-count');
@@ -56,13 +57,49 @@ const cancelTxBtn = document.getElementById('cancel-tx-btn');
 
 // Initialize Application
 document.addEventListener('DOMContentLoaded', () => {
+  initLoadingScreen();
   initTelegramUserData();
   initTonConnect();
   renderCatalog();
   setupEventListeners();
 });
 
-// Setup User Info from Telegram or fallback to Volodymyr
+// Initialize and play Lottie loading animation, then hide screen
+function initLoadingScreen() {
+  const loadingScreen = document.getElementById('loading-screen');
+  const lottieContainer = document.getElementById('lottie-loader');
+
+  // Play Lottie animation
+  const anim = lottie.loadAnimation({
+    container: lottieContainer,
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'https://raw.githubusercontent.com/vovashmyhol/Deleted-Gifts-/refs/heads/main/load.json'
+  });
+
+  // Preload all gift images
+  const imagePromises = GIFTS_DATA.map(gift => {
+    return new Promise(resolve => {
+      const img = new Image();
+      img.onload = resolve;
+      img.onerror = resolve; // resolve even on error so we don't hang
+      img.src = gift.image;
+    });
+  });
+
+  // Minimum 1.5s display + wait for images to load
+  const minDelay = new Promise(resolve => setTimeout(resolve, 1500));
+
+  Promise.all([minDelay, ...imagePromises]).then(() => {
+    anim.destroy();
+    loadingScreen.classList.add('hidden');
+  });
+}
+
+
+
+// Setup User Info from Telegram or fallback to Volodymyr & auto-set username
 function initTelegramUserData() {
   if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
     const user = tg.initDataUnsafe.user;
@@ -70,6 +107,10 @@ function initTelegramUserData() {
     senderName.textContent = name || 'Volodymyr';
     if (user.photo_url) {
       senderAvatar.src = user.photo_url;
+    }
+    // Auto-set current Telegram user's username for recipient field
+    if (user.username) {
+      recipientHandleInput.value = `@${user.username}`;
     }
   }
 }
@@ -185,6 +226,14 @@ function setupEventListeners() {
       updateTotalPrice();
     }
   });
+
+  // Clear Recipient Input Button
+  if (clearRecipientBtn) {
+    clearRecipientBtn.addEventListener('click', () => {
+      recipientHandleInput.value = '';
+      recipientHandleInput.focus();
+    });
+  }
 
   // Buy Button Click
   buyBtn.addEventListener('click', handleBuyAction);

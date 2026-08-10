@@ -92,10 +92,10 @@ body {
   width: 100%;
   max-width: 480px;
   min-height: 100vh;
-  padding: 16px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   position: relative;
 }
 
@@ -106,6 +106,29 @@ body {
   justify-content: space-between;
   padding: 4px 0;
 }
+
+/* Footer */
+.app-footer {
+  text-align: center;
+  padding: 14px 0 20px;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.22);
+  letter-spacing: 0.3px;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.38);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s ease;
+}
+
+.footer-link:active {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+
 
 .bot-info {
   display: flex;
@@ -431,6 +454,44 @@ body {
 
 .input-group input::placeholder {
   color: #556270;
+}
+
+/* Clear Input Cross Button */
+.input-with-clear {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-clear input {
+  padding-right: 36px;
+}
+
+.clear-input-btn {
+  position: absolute;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.clear-input-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+.clear-input-btn:active {
+  transform: scale(0.9);
 }
 
 .input-row {
