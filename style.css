@@ -1,7 +1,7 @@
 /* Ultra-Minimalist iOS Dark Glass Design (Razor-Thin Subtle Rims) */
 :root {
-  --bg-primary: var(--tg-theme-bg-color, #121418);
-  --bg-secondary: var(--tg-theme-secondary-bg-color, #1a1d24);
+  --bg-primary: #121418;
+  --bg-secondary: #1a1d24;
   --card-bg: #1a1e25;
   --text-main: var(--tg-theme-text-color, #ffffff);
   --text-secondary: var(--tg-theme-hint-color, #788594);

@@ -27,6 +27,12 @@ const tg = window.Telegram?.WebApp;
 if (tg) {
   tg.ready();
   tg.expand();
+  if (tg.setHeaderColor) {
+    tg.setHeaderColor('#121418');
+  }
+  if (tg.setBackgroundColor) {
+    tg.setBackgroundColor('#121418');
+  }
   if (tg.enableClosingConfirmation) {
     tg.enableClosingConfirmation();
   }
