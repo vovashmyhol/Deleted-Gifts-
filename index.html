@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Deleted Gifts Bot</title>
+  
+  <!-- Telegram Web App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- TON Connect UI SDK -->
+  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+  
+  <!-- Lottie Web Player -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Fullscreen Loading Screen with Lottie Animation -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader-content">
+      <div id="lottie-loader" class="lottie-loader"></div>
+      <div class="loader-fee-badge">0% Commission</div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="bot-info">
+        <div class="avatar-wrapper">
+          <img src="Bot avatar.jpg" alt="Bot Avatar" class="bot-avatar">
+        </div>
+        <div class="bot-text">
+          <h1 class="bot-name">Deleted Gifts</h1>
+          <span class="bot-status">прочие подарки • <strong class="fee-text-eng">0% Fee</strong></span>
+        </div>
+      </div>
+      
+      <!-- TonConnect Button Container -->
+      <div id="ton-connect-btn"></div>
+    </header>
+
+    <!-- Banner (6:2 Aspect Ratio Placeholder) -->
+    <section class="banner-container">
+      <div class="banner-card">
+        <!-- Photo image tag (insert your src here later) -->
+        <img id="banner-photo" src="Баннер.JPG" alt="Banner Photo" class="banner-photo" onerror="this.style.display='none'">
+        <div class="banner-placeholder-text">Место для фото (6:2)</div>
+      </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <main class="catalog-section">
+      <div id="gifts-grid" class="gifts-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Bottom Sheet Purchase Modal (Photo 2 design) -->
+  <div id="modal-backdrop" class="modal-backdrop">
+    <div id="purchase-sheet" class="purchase-sheet">
+      <div class="sheet-handle-bar">
+        <div class="sheet-handle"></div>
+      </div>
+      
+      <div class="sheet-content">
+        <!-- Gift Image Preview -->
+        <div class="sheet-image-container">
+          <img id="sheet-gift-img" src="Gifts/1.png" alt="Gift Preview">
+        </div>
+
+        <!-- Sender Header -->
+        <div class="sheet-sender-info">
+          <span>Подарок от</span>
+          <img id="sender-avatar" src="Volodymyr avatar.jpg" alt="Volodymyr Avatar" class="sender-avatar-img">
+          <strong id="sender-name">Volodymyr</strong>
+        </div>
+
+        <!-- Inputs Form -->
+        <div class="sheet-form">
+          <!-- Optional signature -->
+          <div class="input-group">
+            <input type="text" id="gift-comment" placeholder="Подпись к подарку (необязательно)" autocomplete="off">
+          </div>
+
+          <!-- Recipient & Quantity controls -->
+          <div class="input-row">
+            <div class="input-group flex-1">
+              <input type="text" id="recipient-handle" value="@vovnx" placeholder="Подарить другу" autocomplete="off">
+            </div>
+            
+            <div class="quantity-control">
+              <button type="button" class="qty-btn" id="qty-minus">−</button>
+              <span class="qty-count" id="qty-count">1</span>
+              <button type="button" class="qty-btn" id="qty-plus">+</button>
+            </div>
+          </div>
+
+          <!-- Anonymous Tumbler Switch Row -->
+          <div class="toggle-row">
+            <span class="toggle-label">Купить анонимно</span>
+            <label class="switch">
+              <input type="checkbox" id="anon-toggle">
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <!-- Buy Action Button -->
+          <button type="button" id="buy-btn" class="buy-btn">
+            Купить · <span id="buy-price">0.6</span> 
+            <img src="Ton.png" alt="TON" class="ton-icon">
+          </button>
+
+          <!-- Disclaimer Note -->
+          <p class="disclaimer-text">
+            Нажимая кнопку «Купить» вы соглашаетесь с <a href="#" id="terms-link">условиями</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TON Confirmation Screen / Overlay -->
+  <div id="ton-confirm-overlay" class="ton-confirm-overlay">
+    <div class="ton-confirm-card">
+      <div class="tonkeeper-spinner">
+        <div class="spinner-ring"></div>
+        <img src="https://tonkeeper.com/assets/tonconnect-icon.png" alt="Tonkeeper" class="tonkeeper-logo-icon" onerror="this.src='Bot avatar.jpg'">
+      </div>
+      <h3 class="confirm-title">Confirm the transaction in Tonkeeper</h3>
+      <p class="confirm-subtitle">It will only take a moment.</p>
+
+      <div class="confirm-details">
+        <div class="detail-row">
+          <span>Сумма:</span>
+          <strong id="confirm-amount">1.67 TON</strong>
+        </div>
+        <div class="detail-row">
+          <span>Комментарий:</span>
+          <strong id="confirm-comment">To @vovnx gift #1</strong>
+        </div>
+      </div>
+
+      <button type="button" id="cancel-tx-btn" class="cancel-tx-btn">Отмена</button>
+    </div>
+  </div>
+
+  <!-- Main Application Script -->
+  <script src="app.js"></script>
+</body>
+</html>
