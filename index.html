@@ -34,26 +34,33 @@
   <div class="app-container">
     <!-- Header -->
     <header class="app-header">
-      <div class="bot-info">
+      <button type="button" class="bot-info profile-entry" id="profile-entry" aria-label="Open profile">
         <div class="avatar-wrapper">
-          <img src="Bot avatar.jpg" alt="Bot Avatar" class="bot-avatar">
+          <img src="Bot avatar.jpg" alt="User Avatar" class="bot-avatar" id="header-user-avatar">
         </div>
         <div class="bot-text">
-          <h1 class="bot-name">Deleted Gifts</h1>
+          <h1 class="bot-name" id="header-user-name">Profile</h1>
           <span class="bot-status">Удаленные подарки<strong class="fee-text-eng"></strong></span>
         </div>
-      </div>
+      </button>
       
       <!-- TonConnect Button Container -->
       <div id="ton-connect-btn"></div>
     </header>
 
-    <!-- Banner (6:2 Aspect Ratio Placeholder) -->
+    <!-- Banner Carousel -->
     <section class="banner-container">
-      <div class="banner-card">
-        <!-- Photo image tag (insert your src here later) -->
-        <img id="banner-photo" src="Баннер.JPG" alt="Banner Photo" class="banner-photo" onerror="this.style.display='none'">
-        <div class="banner-placeholder-text">Место для фото (6:2)</div>
+      <div id="banner-carousel" class="banner-carousel" role="region" aria-label="Рекламные баннеры">
+        <div class="banner-track" id="banner-track">
+          <a class="banner-card banner-slide" href="https://t.me/voco_in/299" target="_blank" rel="noopener noreferrer">
+            <img src="Баннер.JPG" alt="Banner 1" class="banner-photo" onerror="this.style.display='none'">
+            <div class="banner-placeholder-text">Место для фото (6:2)</div>
+          </a>
+          <a class="banner-card banner-slide" href="https://t.me/voco_in/299" target="_blank" rel="noopener noreferrer">
+            <img src="banner1.JPEG" alt="Banner 2" class="banner-photo" onerror="this.style.display='none'">
+            <div class="banner-placeholder-text">Место для фото (6:2)</div>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -68,6 +75,61 @@
     <footer class="app-footer">
       Powered by <a href="https://t.me/vovnx" target="_blank" class="footer-link">@vovnx</a>
     </footer>
+
+    <!-- Profile Screen -->
+    <section class="profile-screen" id="profile-screen" hidden>
+      <div class="profile-topbar">
+        <button type="button" class="profile-back-btn" id="profile-back-btn">Каталог</button>
+        <span class="profile-screen-title">Профиль</span>
+      </div>
+
+      <div class="profile-hero">
+        <img src="Bot avatar.jpg" alt="User Avatar" class="profile-avatar" id="profile-user-avatar">
+        <div class="profile-main-info">
+          <h2 id="profile-user-name">User</h2>
+          <span id="profile-username">@user</span>
+          <span id="profile-user-id">ID: -</span>
+        </div>
+      </div>
+
+      <div class="profile-spent-card">
+        <span>Потрачено TON</span>
+        <strong><span id="profile-spent-ton">0.00</span> TON</strong>
+      </div>
+
+      <div class="profile-tabs" role="tablist" aria-label="Profile tabs">
+        <button type="button" class="profile-tab active" data-profile-tab="history">История</button>
+        <button type="button" class="profile-tab" data-profile-tab="cards">Lucky Cards</button>
+      </div>
+
+      <div class="profile-tab-panel active" id="profile-tab-history">
+        <div class="profile-empty-state">
+          <span>История пока пустая</span>
+          <small>Покупки и Lucky Buy будут появляться здесь позже.</small>
+        </div>
+      </div>
+
+      <div class="profile-tab-panel" id="profile-tab-cards">
+        <div class="exchange-card disabled">
+          <div>
+            <strong>3 Lucky Cards</strong>
+            <span>Обмен на подарок #1</span>
+          </div>
+          <button type="button" disabled>Скоро</button>
+        </div>
+      </div>
+
+      <div class="profile-settings">
+        <a href="https://t.me/supvoco" target="_blank" rel="noopener noreferrer">Поддержка @supvoco</a>
+        <div class="language-row">
+          <span>Язык</span>
+          <div class="language-toggle" aria-label="Language">
+            <button type="button" class="active">Рус</button>
+            <button type="button">Eng</button>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 
   <!-- Bottom Sheet Purchase Modal (Photo 2 design) -->
@@ -140,6 +202,137 @@
     </div>
   </div>
 
+  <!-- Bottom Sheet Lucky Buy Modal (Photo 1 reference design) -->
+  <div id="lucky-modal-backdrop" class="modal-backdrop">
+    <div id="lucky-sheet" class="purchase-sheet lucky-sheet">
+      <div class="sheet-handle-bar lucky-handle-bar">
+        <div class="sheet-handle"></div>
+        <button type="button" id="close-lucky-btn" class="close-modal-btn" title="Закрыть">&times;</button>
+      </div>
+
+      <div class="sheet-content lucky-sheet-content">
+        <!-- Spinning Roulette Viewport Container -->
+        <div id="lucky-roulette-container" class="lucky-roulette-container">
+          <div class="pointer-arrow pointer-top"></div>
+          <div class="lucky-roulette-viewport">
+            <div id="lucky-roulette-track" class="lucky-roulette-track">
+              <!-- Rendered dynamically by app.js -->
+            </div>
+          </div>
+          <div class="pointer-arrow pointer-bottom"></div>
+        </div>
+
+        <!-- Gift Base Cost / Value -->
+        <div id="lucky-base-price-row" class="lucky-base-price-row">
+          <div class="lucky-price-badge">
+            <img src="Ton.png" alt="TON" class="ton-icon-sm">
+            <span id="lucky-gift-base-price">0.6</span>
+          </div>
+        </div>
+
+        <!-- Controls Form -->
+        <div class="sheet-form lucky-form" id="lucky-main-form">
+          <!-- Probability Slider Section -->
+          <div class="lucky-slider-card">
+            <div class="lucky-slider-header">
+              <span class="lucky-slider-title">Вероятность выиграть</span>
+              <span class="lucky-prob-badge" id="lucky-prob-badge">60%</span>
+            </div>
+            <input type="range" id="lucky-prob-slider" class="lucky-range-slider" min="10" max="75" step="1" value="60">
+          </div>
+
+          <!-- Skip Animation Tumbler Row -->
+          <div class="toggle-row">
+            <span class="toggle-label">Пропустить анимацию</span>
+            <label class="switch">
+              <input type="checkbox" id="lucky-skip-toggle">
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <!-- Possible Win Row -->
+          <div class="lucky-win-info-row">
+            <span class="lucky-win-label">Возможный выигрыш:</span>
+            <div class="lucky-win-values">
+              <span class="lucky-multiplier-text" id="lucky-multiplier">(x1.33)</span>
+              <div class="lucky-win-amount-badge">
+                <img src="Ton.png" alt="TON" class="ton-icon-sm">
+                <span id="lucky-win-amount">0.60</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buy Action Button -->
+          <button type="button" id="lucky-spin-btn" class="buy-btn lucky-spin-btn">
+            Испытать удачу · <span id="lucky-btn-price">0.45</span>
+            <img src="Ton.png" alt="TON" class="ton-icon">
+          </button>
+        </div>
+
+        <!-- ===== RESULT SCREEN - shown after spin ===== -->
+        <div class="lucky-result-screen" id="lucky-result-screen" style="display:none;">
+
+          <!-- LOSE STATE -->
+          <div id="lucky-result-lose" class="lucky-result-state">
+            <div class="lucky-result-clover-card">
+              <img src="LuckyBuyIcon2.png" alt="Lucky Card" class="lucky-result-card-img">
+            </div>
+            <p class="lucky-result-title lose-title">Не повезло в этот раз!</p>
+            <p class="lucky-result-desc">
+              Держите <span class="lucky-card-text">Lucky Card</span>! 🍀<br>
+              Накапливайте карты и позже обменяете их на подарки.
+            </p>
+            <button type="button" id="lucky-retry-btn" class="buy-btn lucky-retry-btn">
+              Попробовать ещё раз
+            </button>
+          </div>
+
+          <!-- WIN STATE -->
+          <div id="lucky-result-win" class="lucky-result-state" style="display:none;">
+            <p class="lucky-result-title win-title">Так держать!</p>
+            <p class="lucky-result-desc">Подарок готов к выдаче</p>
+
+            <!-- Preview of won gift -->
+            <div class="lucky-won-gift-preview">
+              <img id="lucky-won-gift-img" src="Gifts/1.png" alt="Won Gift">
+            </div>
+
+            <!-- Purchase-like claim form -->
+            <div class="sheet-form" style="margin-top: 10px; width: 100%;">
+              <div class="input-group input-with-clear">
+                <input type="text" id="lucky-withdraw-recipient" placeholder="Получатель @username" autocomplete="off">
+                <button type="button" id="clear-lucky-recipient-btn" class="clear-input-btn" title="Очистить">
+                  <svg viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="input-group">
+                <input type="text" id="lucky-claim-comment" placeholder="Подпись к подарку (необязательно)" autocomplete="off">
+              </div>
+
+              <div class="lucky-withdraw-fee-row">
+                <span class="lucky-win-label">Комиссия за вывод:</span>
+                <div class="lucky-win-amount-badge">
+                  <img src="Ton.png" alt="TON" class="ton-icon-sm">
+                  <span>0.05</span>
+                </div>
+              </div>
+
+              <button type="button" id="lucky-withdraw-btn" class="buy-btn lucky-spin-btn">
+                Получить подарок · 0.05
+                <img src="Ton.png" alt="TON" class="ton-icon">
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- TON Confirmation Screen / Overlay -->
   <div id="ton-confirm-overlay" class="ton-confirm-overlay">
     <div class="ton-confirm-card">
@@ -162,6 +355,30 @@
       </div>
 
       <button type="button" id="cancel-tx-btn" class="cancel-tx-btn">Отмена</button>
+    </div>
+  </div>
+
+  <!-- Gift Delivery Confirmation Overlay -->
+  <div id="gift-delivery-overlay" class="ton-confirm-overlay">
+    <div class="ton-confirm-card delivery-confirm-card">
+      <div class="delivery-check-icon">✓</div>
+      <h3 class="confirm-title">Заявка принята</h3>
+      <p class="confirm-subtitle">
+        Подарок поступит получателю в течение до 12 часов.
+      </p>
+
+      <div class="confirm-details">
+        <div class="detail-row">
+          <span>Подарок:</span>
+          <strong id="delivery-gift-name">Gift</strong>
+        </div>
+        <div class="detail-row">
+          <span>Получатель:</span>
+          <strong id="delivery-recipient">@user</strong>
+        </div>
+      </div>
+
+      <button type="button" id="gift-delivery-ok-btn" class="delivery-ok-btn">Понятно</button>
     </div>
   </div>
 

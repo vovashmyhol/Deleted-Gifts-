@@ -78,9 +78,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-body {
+html, body {
   font-family: var(--font-family);
-  background-color: var(--bg-primary);
+  background: #121418 !important;
+  background-color: #121418 !important;
   color: var(--text-main);
   min-height: 100vh;
   overflow-x: hidden;
@@ -136,6 +137,22 @@ body {
   gap: 12px;
 }
 
+.profile-entry {
+  min-width: 0;
+  max-width: 62%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.profile-entry:active {
+  transform: scale(0.98);
+}
+
 .avatar-wrapper {
   width: 42px;
   height: 42px;
@@ -158,6 +175,7 @@ body {
 .bot-text {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .bot-name {
@@ -165,11 +183,274 @@ body {
   font-weight: 700;
   line-height: 1.2;
   color: var(--text-main);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .bot-status {
   font-size: 12px;
   color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-container.profile-active .banner-container,
+.app-container.profile-active .catalog-section,
+.app-container.profile-active .app-footer {
+  display: none;
+}
+
+.profile-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: fadeInResult 0.25s ease;
+}
+
+.profile-screen[hidden] {
+  display: none;
+}
+
+.profile-topbar {
+  display: grid;
+  grid-template-columns: 86px 1fr 86px;
+  align-items: center;
+  min-height: 36px;
+}
+
+.profile-back-btn {
+  width: fit-content;
+  min-height: 34px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 18px;
+  background: #1a1e25;
+  color: rgba(255, 255, 255, 0.82);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: inset 0 0.75px 0 rgba(255,255,255,0.08), 0 4px 12px rgba(0,0,0,0.28);
+}
+
+.profile-screen-title {
+  justify-self: center;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.profile-hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 20px;
+  background: #1a1e25;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 0.75px 0 rgba(255,255,255,0.07), 0 8px 20px rgba(0,0,0,0.32);
+}
+
+.profile-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+}
+
+.profile-main-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.profile-main-info h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.15;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-main-info span {
+  color: var(--text-secondary);
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-spent-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: #15181e;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.profile-spent-card strong {
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.profile-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.profile-tab {
+  position: relative;
+  height: 42px;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.profile-tab.active {
+  color: #ffffff;
+}
+
+.profile-tab.active::after {
+  content: "";
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px;
+  background: #e6ac00;
+}
+
+.profile-tab-panel {
+  display: none;
+}
+
+.profile-tab-panel.active {
+  display: block;
+}
+
+.profile-empty-state,
+.exchange-card,
+.profile-settings {
+  border-radius: 18px;
+  background: #1a1e25;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+}
+
+.profile-empty-state {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 16px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 14px;
+}
+
+.profile-empty-state small {
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.exchange-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 16px;
+}
+
+.exchange-card div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.exchange-card strong {
+  font-size: 15px;
+}
+
+.exchange-card span {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.exchange-card button {
+  min-height: 32px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.36);
+  font: inherit;
+  font-weight: 700;
+}
+
+.exchange-card.disabled {
+  opacity: 0.72;
+}
+
+.profile-settings {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.profile-settings a,
+.language-row {
+  min-height: 48px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.86);
+  text-decoration: none;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.language-row {
+  border-bottom: 0;
+}
+
+.language-toggle {
+  display: flex;
+  padding: 3px;
+  border-radius: 16px;
+  background: #121418;
+}
+
+.language-toggle button {
+  min-width: 42px;
+  height: 26px;
+  border: 0;
+  border-radius: 13px;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.language-toggle button.active {
+  background: #1f2630;
+  color: #ffffff;
 }
 
 /* TON Connect Button customization (#1a1e25 badge color) */
@@ -205,22 +486,59 @@ body {
   width: 100%;
 }
 
-.banner-card {
+.banner-carousel {
+  position: relative;
+  overflow: hidden;
   width: 100%;
-  aspect-ratio: 6 / 2;
+  max-width: 100%;
+  border-radius: 20px;
+}
+
+.banner-track {
+  display: flex;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.banner-slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  aspect-ratio: 16 / 6;
+  min-height: 124px;
+  max-height: 170px;
   border-radius: 20px;
   background: #1a1e25;
-  border-top: 1px dashed rgba(255, 255, 255, 0.14);
-  border-left: 1px dashed rgba(255, 255, 255, 0.08);
-  border-right: 1px dashed rgba(255, 255, 255, 0.03);
-  border-bottom: 1px dashed rgba(0, 0, 0, 0.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: inset 0 0.75px 0px rgba(255, 255, 255, 0.08), 0 6px 18px rgba(0, 0, 0, 0.35);
-  transition: border-color 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.banner-slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #1a1e25 center / cover no-repeat;
+  filter: blur(14px);
+  transform: scale(1.08);
+  opacity: 0.45;
+  z-index: 0;
+}
+
+.banner-slide:nth-child(1)::before {
+  background-image: url("%D0%91%D0%B0%D0%BD%D0%BD%D0%B5%D1%80.JPG");
+}
+
+.banner-slide:nth-child(2)::before {
+  background-image: url("banner1.JPEG");
 }
 
 .banner-card:hover {
@@ -228,13 +546,15 @@ body {
 }
 
 .banner-photo {
+  display: block;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
+  object-position: center center;
   z-index: 1;
+  background: transparent;
 }
 
 .banner-placeholder-text {
@@ -244,6 +564,27 @@ body {
   z-index: 0;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+}
+
+.banner-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.banner-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: background 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.banner-dot.active {
+  background: #e6ac00;
+  transform: scale(1.2);
 }
 
 /* Catalog Grid (Razor-Thin Rim Tiles) */
@@ -303,7 +644,11 @@ body {
 .gift-img {
   max-width: 80%;
   max-height: 80%;
+  width: auto;
+  height: auto;
+  display: block;
   object-fit: contain;
+  object-position: center;
   filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
 }
 
@@ -350,7 +695,7 @@ body {
   width: 100%;
   max-width: 480px;
   background: #161920;
-  border-radius: 26px 26px 0 0;
+  border-radius: 38px 38px 0 0;
   padding: 12px 20px 24px;
   transform: translateY(100%);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -805,4 +1150,447 @@ input:checked + .slider:before {
 
 .cancel-tx-btn:active {
   background: rgba(255, 255, 255, 0.05);
+}
+
+/* ===================== LUCKY BUY FEATURE STYLES ===================== */
+/* Top-left Liquid Glass Circle Lucky Button on Gift Cards */
+.gift-card-lucky-btn {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  padding: 0;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lucky-btn-clover-img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+}
+
+.gift-card-lucky-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.7), 0 6px 14px rgba(0, 0, 0, 0.5);
+  transform: scale(1.08);
+}
+
+.gift-card-lucky-btn:active {
+  transform: scale(0.9);
+}
+
+/* Close Modal Button in Handle Bar */
+.lucky-handle-bar {
+  position: relative;
+}
+
+.close-modal-btn {
+  position: absolute;
+  right: 0;
+  top: -4px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--text-secondary);
+  font-size: 20px;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.close-modal-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* Horizontal Spinning Roulette Container & Viewport */
+.lucky-roulette-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 6px 0 16px;
+}
+
+.lucky-roulette-viewport {
+  width: 100%;
+  max-width: 320px;
+  height: 98px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 22px;
+  background: #12151b;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.85), 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Central Winner Selection Frame Highlight Overlay */
+.lucky-roulette-viewport::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 84px;
+  height: 100%;
+  border-left: 2px solid rgba(230, 172, 0, 0.8);
+  border-right: 2px solid rgba(230, 172, 0, 0.8);
+  background: rgba(230, 172, 0, 0.04);
+  pointer-events: none;
+  z-index: 10;
+  box-shadow: inset 0 0 10px rgba(230, 172, 0, 0.25);
+}
+
+/* Horizontal Track containing all cards */
+.lucky-roulette-track {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  align-items: center;
+  will-change: transform;
+  transition: transform 4s cubic-bezier(0.12, 0.8, 0.2, 1);
+}
+
+/* Individual Card Item in the Reel Track */
+.roulette-item {
+  width: 82px;
+  height: 90px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  background: #1a1e25;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid rgba(255, 255, 255, 0.04);
+  border-right: 1px solid rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0.75px 0px rgba(255, 255, 255, 0.07), 0 4px 10px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+
+.roulette-item.lucky-card {
+  background: linear-gradient(145deg, #1d2533 0%, #121824 100%);
+  border-top-color: rgba(230, 172, 0, 0.35);
+  box-shadow: inset 0 0.75px 0px rgba(230, 172, 0, 0.2), 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.roulette-item.gift-card-item {
+  background: #152438;
+  border-top-color: rgba(255, 255, 255, 0.18);
+}
+
+.roulette-item-img {
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
+}
+
+/* Pointer Arrows */
+.pointer-arrow {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  z-index: 15;
+}
+
+.pointer-top {
+  border-top: 10px solid #e6ac00;
+  filter: drop-shadow(0 2px 4px rgba(230, 172, 0, 0.6));
+  margin-bottom: 4px;
+}
+
+.pointer-bottom {
+  border-bottom: 10px solid #e6ac00;
+  filter: drop-shadow(0 -2px 4px rgba(230, 172, 0, 0.6));
+  margin-top: 4px;
+}
+
+/* Base Price Row */
+.lucky-base-price-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.lucky-price-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.ton-icon-sm {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+/* Probability Slider Section */
+.lucky-slider-card {
+  background: #14171d;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: inset 0 0.75px 0px rgba(255, 255, 255, 0.06);
+}
+
+.lucky-slider-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lucky-slider-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.lucky-prob-badge {
+  background: rgba(230, 172, 0, 0.16);
+  border: 1px solid rgba(230, 172, 0, 0.3);
+  color: #e6ac00;
+  padding: 3px 9px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.lucky-range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #242933;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+.lucky-range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #e6ac00;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 10px rgba(230, 172, 0, 0.6);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.lucky-range-slider::-webkit-slider-thumb:active {
+  transform: scale(1.15);
+}
+
+/* Win Info Row */
+.lucky-win-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 2px;
+  font-size: 14px;
+}
+
+.lucky-win-label {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.lucky-win-values {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lucky-multiplier-text {
+  color: #e6ac00;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.lucky-win-amount-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Gold Spin Action Button */
+.lucky-spin-btn {
+  background: linear-gradient(135deg, #e6ac00 0%, #c48f00 100%) !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4) !important;
+  box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.3), 0 4px 18px rgba(230, 172, 0, 0.4) !important;
+}
+
+.lucky-spin-btn:active {
+  background: linear-gradient(135deg, #c48f00 0%, #997000 100%) !important;
+  transform: scale(0.98);
+}
+
+/* ===== LUCKY BUY RESULT SCREEN ===== */
+.lucky-result-screen {
+  animation: fadeInResult 0.35s ease;
+}
+
+@keyframes fadeInResult {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.lucky-result-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+/* Lose state - Lucky Card preview */
+.lucky-result-clover-card {
+  width: 90px;
+  height: 90px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #d49b00 0%, #7a5800 100%);
+  border-top: 1px solid rgba(255, 235, 150, 0.4);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.25), 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.lucky-result-card-img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
+}
+
+.lucky-result-title {
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+}
+
+.lose-title {
+  color: #788594;
+}
+
+.win-title {
+  color: #e6ac00;
+}
+
+.lucky-result-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.lucky-card-text {
+  color: #e6ac00;
+  font-weight: 700;
+}
+
+.lucky-retry-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.lucky-retry-btn:active {
+  background: rgba(255, 255, 255, 0.14) !important;
+  transform: scale(0.98);
+}
+
+/* Win state */
+.lucky-win-confetti {
+  font-size: 44px;
+  line-height: 1;
+  animation: confettiBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes confettiBounce {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.lucky-won-gift-preview {
+  width: 88px;
+  height: 88px;
+  border-radius: 20px;
+  background: #152438;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 24px rgba(230, 173, 0, 0), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+.lucky-won-gift-preview img {
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+}
+
+.lucky-withdraw-fee-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 2px;
+  font-size: 14px;
 }
