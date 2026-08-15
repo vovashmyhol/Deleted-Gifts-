@@ -14,7 +14,8 @@ const GIFTS_DATA = [
   { id: 7, name: 'Ракета', price: 0.6, image: 'Gifts/7.png' },
   { id: 8, name: 'Шампанское', price: 0.6, image: 'Gifts/8.png' },
   { id: 9, name: 'Алмаз', price: 0.6, image: 'Gifts/9.png' },
-  { id: 10, name: 'Кубок', price: 0.6, image: 'Gifts/10.png' }
+  { id: 10, name: 'Кубок', price: 0.6, image: 'Gifts/10.png' },
+  { id: 11, name: 'Мишка-воин', price: 0.6, image: 'Gifts/11.png' }
 ];
 
 // Initialize Telegram WebApp SDK
